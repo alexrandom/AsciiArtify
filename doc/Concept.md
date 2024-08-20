@@ -71,6 +71,58 @@ minikube stop
 
 ![Demo on minikube](demo-minikube.gif)
 
+### Example of Deploying "Hello World" on Kubernetes using kind
+
+#### Install kind on Linux x86-64
+```bash
+# For AMD64 / x86_64
+[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.24.0/kind-linux-amd64
+# For ARM64
+[ $(uname -m) = aarch64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.24.0/kind-linux-arm64
+chmod +x ./kind
+sudo mv ./kind /usr/local/bin/kind
+```
+
+#### Install kind on macOS
+```bash
+# For Intel Macs
+[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.24.0/kind-darwin-amd64
+# For M1 / ARM Macs
+[ $(uname -m) = arm64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.24.0/kind-darwin-arm64
+chmod +x ./kind
+mv ./kind /some-dir-in-your-PATH/kind
+```
+
+#### Start your kind cluster
+```bash
+kind create cluster --name hello-world-cluster
+```
+
+#### Interact with your cluster
+```bash
+# Create a deployment
+kubectl create deployment hello-world --image=kicbase/echo-server:1.0
+
+
+# Expose the deployment as a NodePort service
+kubectl expose deployment hello-world --type=NodePort --port=8080
+
+# Get the NodePort
+kubectl get service hello-world
+
+# Use Port Forwarding
+kubectl port-forward service/hello-world 8080:8080
+```
+![Demo on kind](demo-kind-helloworld.png)
+
+### Delete your kind cluster
+```bash
+kind delete cluster
+```
+
+![Demo on kind](demo-kind.gif)
+
+
 ### Example of Deploying "Hello World" on Kubernetes using k3d
 
 ```bash
