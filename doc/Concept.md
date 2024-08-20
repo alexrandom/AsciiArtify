@@ -162,3 +162,6 @@ Based on the comparative analysis, it is recommended to use k3d for the "AsciiAr
 minikube is suitable for local testing and development but has scalability limitations.
 kind integrates well with CI/CD but its dependency on Docker may pose some risks in the future.
 k3d provides an optimal balance between deployment speed and functionality, making it the best choice for the PoC.
+
+## Recommendations
+After analysis of 3 solution, I would recommend to use k3d for local development. Also consider using Podman. This can reduce the risks associated with Docker licensing.
